@@ -14,7 +14,7 @@ function App() {
   }, []);
   useEffect(() => {
     localStorage.setItem("vzletTasks", JSON.stringify(tasks));
-  });
+  }, [tasks]);
 
   const addTasks = (task) => {
     setTasks([...tasks, { id: uuid(), ...task }]);
