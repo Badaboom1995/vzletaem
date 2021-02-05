@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTask from "./components/AddTask";
 import Task from "./components/Task";
 import { v4 as uuid } from "uuid";
@@ -7,6 +7,14 @@ import { Wrapper, Content, Title } from "./styled";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("vzletTasks"));
+    if (storedTasks) setTasks([...storedTasks]);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("vzletTasks", JSON.stringify(tasks));
+  });
 
   const addTasks = (task) => {
     setTasks([...tasks, { id: uuid(), ...task }]);
